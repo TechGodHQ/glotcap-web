@@ -52,6 +52,12 @@ bun run dev
 - `bun run quality:ci`: format check, lint, typecheck, and tests
 - `bun run secrets:check -- <files...>`: scan files for committed secrets
 
+## Continuous Integration
+
+GitHub Actions runs `bun run quality:ci`, the production web build, and a Docker build/health smoke test on pull requests and pushes to `main`. CI uses Bun 1.2.7, Node 22, the committed lockfile, and the bundled workspaces. Dependency installation skips lifecycle scripts so CI does not install developer Git hooks.
+
+Only the public `VITE_CONVEX_URL` is supplied. CI does not deploy the web app or Convex backend, and does not need provider credentials or deployment secrets. The smoke test checks the web container's HTTP health, not authenticated backend/provider integration.
+
 ## Git Hooks
 
 - Hooks are managed with `lefthook`.
